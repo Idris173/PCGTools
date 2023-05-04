@@ -1,0 +1,14 @@
+{
+    "Version": "1.1",
+    "Data": {
+        "Source": "d:\\ue5.2project\\pcg5_2test\\plugins\\pcg_tools\\source\\pcg_tools\\private\\pcg_tools.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\ue5.2project\\pcg5_2test\\intermediate\\build\\win64\\x64\\pcg5_2testeditor\\development\\engine\\sharedpch.engine.shadowerrors.inclorderunreal5_0.h.pch",
+        "Includes": [
+            "d:\\ue5.2project\\pcg5_2test\\plugins\\pcg_tools\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\pcg_tools\\definitions.pcg_tools.h",
+            "d:\\ue5.2project\\pcg5_2test\\plugins\\pcg_tools\\source\\pcg_tools\\public\\pcg_tools.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

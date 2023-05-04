@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "PCG_Tools",
+	"Description": "A PCG toolkit base on PCG Plugins",
+	"Category": "Other",
+	"CreatedBy": "Idris",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "PCG_Tools",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}

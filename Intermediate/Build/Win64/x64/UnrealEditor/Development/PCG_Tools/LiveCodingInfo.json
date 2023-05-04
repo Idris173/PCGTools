@@ -1,0 +1,13 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.PCG_Tools.cpp.obj": [
+			"PCG_DensityByFeature.gen.cpp.obj",
+			"PCG_NormalToSlope.gen.cpp.obj",
+			"PCG_Tools.init.gen.cpp.obj",
+			"PCG_DensityByFeature.cpp.obj",
+			"PCG_NormalToSlope.cpp.obj",
+			"PCG_Tools.cpp.obj"
+		]
+	}
+}
