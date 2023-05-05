@@ -156,28 +156,47 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 		{
 			OutPoint = InPoint;
 
-			const FVector XAxis = { 1.f, 0.f, 0.f };
+			const FVector MinusXAxis = { -1.f, 0.f, 0.f };
 
-			FVector ForwardAxis = XAxis;
+			FVector AgainstVector = MinusXAxis;
 
 			float AngleInRadians = FMath::DegreesToRadians(Settings->DirectionAngle);
 
 			FQuat Rotation = FQuat(FVector(0.f, 0.f, 1.f), AngleInRadians);
 
-			ForwardAxis = Rotation.RotateVector(ForwardAxis);
+			AgainstVector = Rotation.RotateVector(AgainstVector);
 
 			const FVector UpVector = InPoint.Transform.GetUnitAxis(EAxis::Z);
 
 			FVector ProjectedNormal = FVector(UpVector.X, UpVector.Y, 0.f);
 			
 			FVector UnitProjectedNormal = ProjectedNormal.GetSafeNormal();
+			
+			float Dot = FVector::DotProduct(UnitProjectedNormal, AgainstVector);
 
-			float Density = FMath::Clamp(UnitProjectedNormal.Dot(ForwardAxis), 0.f, 1.0f);
+			float IncludedAngle = FMath::RadiansToDegrees(FMath::Acos(Dot));
+			
+			if(IncludedAngle >= -Settings->AngleSpread/2 && IncludedAngle <= Settings->AngleSpread/2)
+			{
+				if(bGenerateDirectionMedialAxis && Settings->bRampByDirection)
+				{
+					float Direction = FMath::Cos(IncludedAngle);
 
-			OutPoint.Density = Density;
+					float DensityValue = DirectionDensityCurve->Eval(Direction);
 
+					OutPoint.Density = FMath::Clamp(DensityValue, 0.f, 1.f);
+				}
+				else
+				{
+					OutPoint.Density = 1;
+				}
+				
+			}
+			else
+			{
+				OutPoint.Density = 0;
+			}
 			//TODO : Clamp and ramp density by AngleSpread.
-
 			return true;
 		
 		});
