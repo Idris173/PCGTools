@@ -44,11 +44,50 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings)
 	EPCGDensityFeatureType DensityFeatureType = EPCGDensityFeatureType::BySlope;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings, meta = (EditCondition = "DensityFeatureType == EPCGDensityFeatureType::ByDirection",EditConditionHides))
-	FVector DirectionVector = {1.0, 0.0, 0.0};
-
 	UPROPERTY(BlueprintReadOnly, Category = Settings, meta = (PCG_Overridable))
 	FVector InPointNormal = {0, 0.0, 1.0};
+
+	//By Slope
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings, meta = (EditCondition = "DensityFeatureType == EPCGDensityFeatureType::BySlope",EditConditionHides))
+	bool bRampBySlopeAngle;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings, meta = (EditCondition = "DensityFeatureType == EPCGDensityFeatureType::BySlope && bRampBySlopeAngle",EditConditionHides, ClampMin = "0", ClampMax = "90"))
+	float MinSlopeAngle = 20;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings, meta = (EditCondition = "DensityFeatureType == EPCGDensityFeatureType::BySlope && bRampBySlopeAngle",EditConditionHides, ClampMin = "0", ClampMax = "90"))
+	float MaxSlopeAngle = 70;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings, meta = (EditCondition = "DensityFeatureType == EPCGDensityFeatureType::BySlope && bRampBySlopeAngle",EditConditionHides))
+	FRuntimeFloatCurve SlopeRampCurve;
+
+	//By Height
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings, meta = (EditCondition = "DensityFeatureType == EPCGDensityFeatureType::ByHeight", EditConditionHides))
+	float MinHeight = 0;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings, meta = (EditCondition = "DensityFeatureType == EPCGDensityFeatureType::ByHeight", EditConditionHides))
+	float MaxHeight = 10;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings, meta = (EditCondition = "DensityFeatureType == EPCGDensityFeatureType::ByHeight", EditConditionHides))
+	bool bRampByHeight;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings, meta = (EditCondition = "DensityFeatureType == EPCGDensityFeatureType::ByHeight && bRampByHeight", EditConditionHides))
+	FRuntimeFloatCurve HeightRampCurve;
+
+	//By Direction
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings, meta = (EditCondition = "DensityFeatureType == EPCGDensityFeatureType::ByDirection", EditConditionHides, ClampMin = "-180", ClampMax = "180"))
+	float DirectionAngle = 0;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings, meta = (EditCondition = "DensityFeatureType == EPCGDensityFeatureType::ByDirection", EditConditionHides, ClampMin = "0", ClampMax = "180"))
+	float AngleSpread = 30;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings, meta = (EditCondition = "DensityFeatureType == EPCGDensityFeatureType::ByDirection", EditConditionHides))
+	bool bRampByDirection;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings, meta = (EditCondition = "DensityFeatureType == EPCGDensityFeatureType::ByDirection && bRampByDirection", EditConditionHides))
+	FRuntimeFloatCurve DirectionRampCurve;
+
 	
 };
 

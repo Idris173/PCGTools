@@ -7,6 +7,6 @@
 /IGNORE:4221
 /NODEFAULTLIB
 "D:\UE5.2Project\PCG5_2Test\Intermediate\Build\Win64\x64\PCG5_2TestEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.InclOrderUnreal5_0.h.obj"
-"D:\UE5.2Project\PCG5_2Test\Plugins\PCG_Tools\Intermediate\Build\Win64\x64\UnrealEditor\Development\PCG_Tools\Module.PCG_Tools.cpp.obj"
-"D:\UE5.2Project\PCG5_2Test\Plugins\PCG_Tools\Intermediate\Build\Win64\x64\UnrealEditor\Development\PCG_Tools\Default.rc2.res"
-/OUT:"D:\UE5.2Project\PCG5_2Test\Plugins\PCG_Tools\Intermediate\Build\Win64\x64\UnrealEditor\Development\PCG_Tools\UnrealEditor-PCG_Tools.lib"
+"D:\UE5.2Project\PCG5_2Test\Plugins\PCGTools\Intermediate\Build\Win64\x64\UnrealEditor\Development\PCG_Tools\Module.PCG_Tools.cpp.obj"
+"D:\UE5.2Project\PCG5_2Test\Plugins\PCGTools\Intermediate\Build\Win64\x64\UnrealEditor\Development\PCG_Tools\Default.rc2.res"
+/OUT:"D:\UE5.2Project\PCG5_2Test\Plugins\PCGTools\Intermediate\Build\Win64\x64\UnrealEditor\Development\PCG_Tools\UnrealEditor-PCG_Tools.lib"

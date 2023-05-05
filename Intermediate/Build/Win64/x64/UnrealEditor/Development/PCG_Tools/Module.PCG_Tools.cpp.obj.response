@@ -1,6 +1,6 @@
-D:\UE5.2Project\PCG5_2Test\Plugins\PCG_Tools\Intermediate\Build\Win64\x64\UnrealEditor\Development\PCG_Tools\Module.PCG_Tools.cpp
+D:\UE5.2Project\PCG5_2Test\Plugins\PCGTools\Intermediate\Build\Win64\x64\UnrealEditor\Development\PCG_Tools\Module.PCG_Tools.cpp
 /I .
-/I D:\UE5.2Project\PCG5_2Test\Plugins\PCG_Tools\Source\PCG_Tools\Private
+/I D:\UE5.2Project\PCG5_2Test\Plugins\PCGTools\Source\PCG_Tools\Private
 /I ..\Intermediate\Build\Win64\UnrealEditor\Inc\CoreUObject\UHT
 /I Runtime\CoreUObject\Public
 /I Runtime
@@ -273,9 +273,9 @@ D:\UE5.2Project\PCG5_2Test\Plugins\PCG_Tools\Intermediate\Build\Win64\x64\Unreal
 /I Runtime\MovieSceneCapture\Public
 /I ..\Intermediate\Build\Win64\UnrealEditor\Inc\AnimationDataController\UHT
 /I Developer\AnimationDataController\Public
-/I D:\UE5.2Project\PCG5_2Test\Plugins\PCG_Tools\Intermediate\Build\Win64\UnrealEditor\Inc\PCG_Tools\UHT
-/I D:\UE5.2Project\PCG5_2Test\Plugins\PCG_Tools\Source
-/I D:\UE5.2Project\PCG5_2Test\Plugins\PCG_Tools\Source\PCG_Tools\Public
+/I D:\UE5.2Project\PCG5_2Test\Plugins\PCGTools\Intermediate\Build\Win64\UnrealEditor\Inc\PCG_Tools\UHT
+/I D:\UE5.2Project\PCG5_2Test\Plugins\PCGTools\Source
+/I D:\UE5.2Project\PCG5_2Test\Plugins\PCGTools\Source\PCG_Tools\Public
 /I ..\Plugins\Experimental\PCG\Intermediate\Build\Win64\UnrealEditor\Inc\PCG\UHT
 /I ..\Plugins\Experimental\PCG\Source\PCG\Public
 /I ..\Plugins\Experimental\PCG\Source
@@ -290,11 +290,11 @@ D:\UE5.2Project\PCG5_2Test\Plugins\PCG_Tools\Intermediate\Build\Win64\x64\Unreal
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um"
 /I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt"
 /FI"D:\UE5.2Project\PCG5_2Test\Intermediate\Build\Win64\x64\PCG5_2TestEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.InclOrderUnreal5_0.h"
-/FI"D:\UE5.2Project\PCG5_2Test\Plugins\PCG_Tools\Intermediate\Build\Win64\x64\UnrealEditor\Development\PCG_Tools\Definitions.PCG_Tools.h"
+/FI"D:\UE5.2Project\PCG5_2Test\Plugins\PCGTools\Intermediate\Build\Win64\x64\UnrealEditor\Development\PCG_Tools\Definitions.PCG_Tools.h"
 /Yu"D:\UE5.2Project\PCG5_2Test\Intermediate\Build\Win64\x64\PCG5_2TestEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.InclOrderUnreal5_0.h"
 /Fp"D:\UE5.2Project\PCG5_2Test\Intermediate\Build\Win64\x64\PCG5_2TestEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.InclOrderUnreal5_0.h.pch"
-/Fo"D:\UE5.2Project\PCG5_2Test\Plugins\PCG_Tools\Intermediate\Build\Win64\x64\UnrealEditor\Development\PCG_Tools\Module.PCG_Tools.cpp.obj"
-/sourceDependencies D:\UE5.2Project\PCG5_2Test\Plugins\PCG_Tools\Intermediate\Build\Win64\x64\UnrealEditor\Development\PCG_Tools\Module.PCG_Tools.cpp.dep.json
+/Fo"D:\UE5.2Project\PCG5_2Test\Plugins\PCGTools\Intermediate\Build\Win64\x64\UnrealEditor\Development\PCG_Tools\Module.PCG_Tools.cpp.obj"
+/sourceDependencies D:\UE5.2Project\PCG5_2Test\Plugins\PCGTools\Intermediate\Build\Win64\x64\UnrealEditor\Development\PCG_Tools\Module.PCG_Tools.cpp.dep.json
 /Zc:inline
 /nologo
 /Oi
