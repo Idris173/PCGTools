@@ -5,7 +5,6 @@
 #include "Helpers/PCGSettingsHelpers.h"
 #include "Data/PCGPointData.h"
 #include "Elements/PCGPointProcessingElementBase.h"
-#include "Kismet/KismetMathLibrary.h"
 #include "Math/UnrealMathUtility.h"
 #include "PCGContext.h"
 #include "PCGPin.h"
@@ -39,15 +38,15 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 
 	// Init Curve
 
-	const FRichCurve* SlopeDensityCurve = Settings->SlopeRampCurve.GetRichCurveConst();
+	const FRichCurve* SlopeDensityCurve = Settings->SlopeSettings.SlopeRampCurve.GetRichCurveConst();
 
 	const bool bGenerateSlopeMedialAxis = SlopeDensityCurve != nullptr && SlopeDensityCurve->GetNumKeys() > 0;
 
-	const FRichCurve* HeightDensityCurve = Settings->HeightRampCurve.GetRichCurveConst();
+	const FRichCurve* HeightDensityCurve = Settings->HeightSettings.HeightRampCurve.GetRichCurveConst();
 
 	const bool bGenerateHeightMedialAxis = HeightDensityCurve != nullptr && HeightDensityCurve->GetNumKeys() > 0;
 
-	const FRichCurve* DirectionDensityCurve = Settings->DirectionRampCurve.GetRichCurveConst();
+	const FRichCurve* DirectionDensityCurve = Settings->DirectionSettings.DirectionRampCurve.GetRichCurveConst();
 
 	const bool bGenerateDirectionMedialAxis = DirectionDensityCurve != nullptr && DirectionDensityCurve->GetNumKeys() > 0;
 
@@ -75,38 +74,37 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 
 			float Slope = FMath::Sin(DegreesNdotZ);
 
-			const float MinBound = FMath::Min(Settings->MinSlopeAngle, Settings->MaxSlopeAngle);
+			const float MinBound = FMath::Min(Settings->SlopeSettings.MinSlopeAngle, Settings->SlopeSettings.MaxSlopeAngle);
 
-			const float MaxBound = FMath::Max(Settings->MinSlopeAngle, Settings->MaxSlopeAngle);
+			const float MaxBound = FMath::Max(Settings->SlopeSettings.MinSlopeAngle, Settings->SlopeSettings.MaxSlopeAngle);
 
-			if(Settings->bRampBySlopeAngle && bGenerateSlopeMedialAxis)
-			{
-				float MinSlope = FMath::DegreesToRadians(MinBound);
+			float MinSlope = FMath::DegreesToRadians(MinBound);
 
-				float MaxSlope = FMath::DegreesToRadians(MaxBound);
+			float MaxSlope = FMath::DegreesToRadians(MaxBound);
 
-				if(Slope >= MinSlope && Slope <= MaxSlope)
+			if(Slope >= MinSlope && Slope <= MaxSlope)
+			{ 
+	
+				if(Settings->SlopeSettings.bRampBySlopeAngle && bGenerateSlopeMedialAxis)
 				{				
-					float DensityValue = SlopeDensityCurve->Eval(Slope);
+					float SlopeDensityValue = SlopeDensityCurve->Eval(Slope);
 
-					OutPoint.Density = FMath::Clamp(DensityValue, 0.f, 1.f);
+					OutPoint.Density = FMath::Clamp(SlopeDensityValue, 0.f, 1.f);
+					
 				}
 				else
 				{
-					Slope = 0;
-
-					OutPoint.Density = Slope;
+					OutPoint.Density = 1;
 				}
-
-				return true;
 				
 			}
 			else
 			{
-				OutPoint.Density = Slope;
-				
-				return true;
+				OutPoint.Density = 0;
+
 			}
+
+			return true;
 
 			
 		});
@@ -119,9 +117,9 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 		{
 			OutPoint = InPoint;
 
-			const float MinBound = FMath::Min(Settings->MinHeight, Settings->MaxHeight);
+			const float MinBound = FMath::Min(Settings->HeightSettings.MinHeight, Settings->HeightSettings.MaxHeight);
 
-			const float MaxBound = FMath::Max(Settings->MinHeight, Settings->MaxHeight);
+			const float MaxBound = FMath::Max(Settings->HeightSettings.MinHeight, Settings->HeightSettings.MaxHeight);
 
 			const float Height = InPoint.Transform.GetLocation().Z;
 
@@ -129,11 +127,11 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 
 			if (Height >= MinBound && Height <= MaxBound)
 			{
-				if (Settings->bRampByHeight && bGenerateHeightMedialAxis)
+				if (Settings->HeightSettings.bRampByHeight && bGenerateHeightMedialAxis)
 				{
-					float DensityValue = HeightDensityCurve->Eval(heightRemap);
+					float HeightDensityValue = HeightDensityCurve->Eval(heightRemap);
 
-					OutPoint.Density = FMath::Clamp(DensityValue, 0.f, 1.f);
+					OutPoint.Density = FMath::Clamp(HeightDensityValue, 0.f, 1.f);
 				}
 				else
 				{
@@ -160,7 +158,7 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 
 			FVector AgainstVector = MinusXAxis;
 
-			float AngleInRadians = FMath::DegreesToRadians(Settings->DirectionAngle);
+			float AngleInRadians = FMath::DegreesToRadians(Settings->DirectionSettings.DirectionAngle);
 
 			FQuat Rotation = FQuat(FVector(0.f, 0.f, 1.f), AngleInRadians);
 
@@ -176,15 +174,15 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 
 			float IncludedAngle = FMath::RadiansToDegrees(FMath::Acos(Dot));
 			
-			if(IncludedAngle >= -Settings->AngleSpread/2 && IncludedAngle <= Settings->AngleSpread/2)
+			if(IncludedAngle >= -Settings->DirectionSettings.AngleSpread/2 && IncludedAngle <= Settings->DirectionSettings.AngleSpread/2)
 			{
-				if(bGenerateDirectionMedialAxis && Settings->bRampByDirection)
+				if(bGenerateDirectionMedialAxis && Settings->DirectionSettings.bRampByDirection)
 				{
-					float Direction = FMath::Cos(IncludedAngle);
+					float Direction = abs(FMath::Cos(IncludedAngle));
 
-					float DensityValue = DirectionDensityCurve->Eval(Direction);
+					float DirectionDensityValue = DirectionDensityCurve->Eval(Direction);
 
-					OutPoint.Density = FMath::Clamp(DensityValue, 0.f, 1.f);
+					OutPoint.Density = FMath::Clamp(DirectionDensityValue, 0.f, 1.f);
 				}
 				else
 				{
@@ -196,8 +194,9 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 			{
 				OutPoint.Density = 0;
 			}
-			//TODO : Clamp and ramp density by AngleSpread.
 			return true;
+
+			//TODO: Blend multiple density
 		
 		});
 		break;
