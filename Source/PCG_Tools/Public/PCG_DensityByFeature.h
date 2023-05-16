@@ -130,7 +130,7 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings,  meta = (EditCondition = "bByDirection",EditConditionHides,ExposeOnSpawn))
 	FDirectionSettings DirectionSettings;
-
+	
 	
 	
 };
