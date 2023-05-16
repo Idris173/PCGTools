@@ -18,7 +18,6 @@ FPCGElementPtr UPCG_DensityByFeatureSettings::CreateElement() const
 }
 
 
-
 bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 {
 	TRACE_CPUPROFILER_EVENT_SCOPE(FPCG_DensityByFeatureElement::Execute);
@@ -28,6 +27,8 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 	check(Settings);
 	
 	const FVector Normal = Settings->InPointNormal.GetSafeNormal();
+
+
 
 	TArray<FPCGTaggedData> Inputs = Context->InputData.GetInputsByPin(PCGPinConstants::DefaultInputLabel);
 	
@@ -59,154 +60,152 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 		return FMath::Clamp(Up.Dot(Normal),0.f,1.0f);
 	};
 
-	//ProcessPoints
-		
-	ProcessPoints(Context, Inputs, Outputs, [CalcValue,Settings, SlopeDensityCurve, bGenerateSlopeMedialAxis,HeightDensityCurve,bGenerateHeightMedialAxis,DirectionDensityCurve,bGenerateDirectionMedialAxis](const FPCGPoint& InPoint, FPCGPoint& OutPoint)->bool
-	{
-		OutPoint = InPoint;
-
-
-		//------------------Calculate Slope--------------------//
-
-		float DegreesNdotZ = FMath::Acos(CalcValue(InPoint));
-
-		float Slope = FMath::Sin(DegreesNdotZ);
-
-		const float MinBoundSlope = FMath::Min(Settings->SlopeSettings.MinSlopeAngle, Settings->SlopeSettings.MaxSlopeAngle);
-
-		const float MaxBoundSlope = FMath::Max(Settings->SlopeSettings.MinSlopeAngle, Settings->SlopeSettings.MaxSlopeAngle);
-
-		float MinSlope = FMath::DegreesToRadians(MinBoundSlope);
-
-		float MaxSlope = FMath::DegreesToRadians(MaxBoundSlope);
-
-		float SlopeDensityValue = 0;
-
-		if(Slope >= MinSlope && Slope <= MaxSlope)
-		{
-			
-
-			if(Settings->SlopeSettings.bRampBySlopeAngle && bGenerateSlopeMedialAxis)
-			{				
-				SlopeDensityValue = FMath::Clamp(SlopeDensityCurve->Eval(Slope), 0.f, 1.f);
-				
-			}
-			else
-			{
-				SlopeDensityValue = 1;
-			}
-			
-		}
-		else
-		{
-			SlopeDensityValue = 0;
-
-		}
-		
-		//------------------Calculate Height--------------------//
-		
-		const float MinBoundHeight = FMath::Min(Settings->HeightSettings.MinHeight, Settings->HeightSettings.MaxHeight);
-
-		const float MaxBoundHeight = FMath::Max(Settings->HeightSettings.MinHeight, Settings->HeightSettings.MaxHeight);
-
-		const float Height = InPoint.Transform.GetLocation().Z;
-
-		float heightRemap = FMath::GetRangePct(MinBoundHeight, MaxBoundHeight, Height);
-
-		float HeightDensityValue = 0;
-
-		if (Height >= MinBoundHeight && Height <= MaxBoundHeight)
-		{
-			if (Settings->HeightSettings.bRampByHeight && bGenerateHeightMedialAxis)
-			{
-				HeightDensityValue = FMath::Clamp(HeightDensityCurve->Eval(heightRemap), 0.f, 1.f);
-
-				
-			}
-			else
-			{
-				HeightDensityValue = 1;
-			}
-			
-		}
-		else
-		{
-			HeightDensityValue = 0;
-		}
-
-		//------------------Calculate Direction--------------------//
-
-		const FVector MinusXAxis = { -1.f, 0.f, 0.f };
-
-		FVector AgainstVector = MinusXAxis;
-
-		float AngleInRadians = FMath::DegreesToRadians(Settings->DirectionSettings.DirectionAngle);
-
-		FQuat Rotation = FQuat(FVector(0.f, 0.f, 1.f), AngleInRadians);
-
-		AgainstVector = Rotation.RotateVector(AgainstVector);
-
-		const FVector UpVector = InPoint.Transform.GetUnitAxis(EAxis::Z);
-
-		FVector ProjectedNormal = FVector(UpVector.X, UpVector.Y, 0.f);
-		
-		FVector UnitProjectedNormal = ProjectedNormal.GetSafeNormal();
-		
-		float Dot = FVector::DotProduct(UnitProjectedNormal, AgainstVector);
-
-		float IncludedAngle = FMath::RadiansToDegrees(FMath::Acos(Dot));
-
-		float DirectionDensityValue = 0;
-		
-		if(IncludedAngle >= -Settings->DirectionSettings.AngleSpread/2 && IncludedAngle <= Settings->DirectionSettings.AngleSpread/2)
-		{
-			if(bGenerateDirectionMedialAxis && Settings->DirectionSettings.bRampByDirection)
-			{
-				float Direction = abs(FMath::Cos(IncludedAngle));
-
-				DirectionDensityValue = FMath::Clamp(DirectionDensityCurve->Eval(Direction), 0.f, 1.f);
-				
-			}
-			else
-			{
-				DirectionDensityValue = 1;
-			}
-			
-		}
-		else
-		{
-			DirectionDensityValue = 0;
-		}
-
-		//-----------------Blend Density-----------------//
-
-		float OutputDensity = 1;
-
-		if(!Settings->bBySlope && !Settings->bByHeight && !Settings->bByDirection)
-		{
-			OutputDensity = 0;
-		}
-
-		if(Settings->bBySlope)
-		{
-			OutputDensity *= SlopeDensityValue;
-		}
-
-		if(Settings->bByHeight)
-		{
-			OutputDensity *= HeightDensityValue;
-		}
-
-		if(Settings->bByDirection)
-		{
-			OutputDensity *= DirectionDensityValue;
-		}
-
-		OutPoint.Density = OutputDensity;
+	//
 	
-		return true;
+	switch (Settings->DensityFeatureType)
+	{
+	case EPCGDensityFeatureType::BySlope:
 		
-	});
+		ProcessPoints(Context, Inputs, Outputs, [CalcValue,Settings, SlopeDensityCurve, bGenerateSlopeMedialAxis](const FPCGPoint& InPoint, FPCGPoint& OutPoint)->bool
+		{
+			OutPoint = InPoint;
+
+			float DegreesNdotZ = FMath::Acos(CalcValue(InPoint));
+
+			float Slope = FMath::Sin(DegreesNdotZ);
+
+			const float MinBound = FMath::Min(Settings->SlopeSettings.MinSlopeAngle, Settings->SlopeSettings.MaxSlopeAngle);
+
+			const float MaxBound = FMath::Max(Settings->SlopeSettings.MinSlopeAngle, Settings->SlopeSettings.MaxSlopeAngle);
+
+			float MinSlope = FMath::DegreesToRadians(MinBound);
+
+			float MaxSlope = FMath::DegreesToRadians(MaxBound);
+
+			if(Slope >= MinSlope && Slope <= MaxSlope)
+			{ 
+	
+				if(Settings->SlopeSettings.bRampBySlopeAngle && bGenerateSlopeMedialAxis)
+				{				
+					float SlopeDensityValue = SlopeDensityCurve->Eval(Slope);
+
+					OutPoint.Density = FMath::Clamp(SlopeDensityValue, 0.f, 1.f);
+					
+				}
+				else
+				{
+					OutPoint.Density = 1;
+				}
+				
+			}
+			else
+			{
+				OutPoint.Density = 0;
+
+			}
+
+			return true;
+
+			
+		});
+		
+		break;
+
+	case EPCGDensityFeatureType::ByHeight:
+
+		ProcessPoints(Context, Inputs, Outputs, [Settings, HeightDensityCurve, bGenerateHeightMedialAxis](const FPCGPoint& InPoint, FPCGPoint& OutPoint)->bool
+		{
+			OutPoint = InPoint;
+
+			const float MinBound = FMath::Min(Settings->HeightSettings.MinHeight, Settings->HeightSettings.MaxHeight);
+
+			const float MaxBound = FMath::Max(Settings->HeightSettings.MinHeight, Settings->HeightSettings.MaxHeight);
+
+			const float Height = InPoint.Transform.GetLocation().Z;
+
+			float heightRemap = FMath::GetRangePct(MinBound, MaxBound, Height);
+
+			if (Height >= MinBound && Height <= MaxBound)
+			{
+				if (Settings->HeightSettings.bRampByHeight && bGenerateHeightMedialAxis)
+				{
+					float HeightDensityValue = HeightDensityCurve->Eval(heightRemap);
+
+					OutPoint.Density = FMath::Clamp(HeightDensityValue, 0.f, 1.f);
+				}
+				else
+				{
+					OutPoint.Density = 1;
+				}
+				
+			}
+			else
+			{
+				OutPoint.Density = 0;
+			}
+			
+			return true;
+		});
+		break;
+
+	case EPCGDensityFeatureType::ByDirection:
+			
+		ProcessPoints(Context, Inputs, Outputs, [Settings, DirectionDensityCurve, bGenerateDirectionMedialAxis](const FPCGPoint& InPoint, FPCGPoint& OutPoint)->bool
+		{
+			OutPoint = InPoint;
+
+			const FVector MinusXAxis = { -1.f, 0.f, 0.f };
+
+			FVector AgainstVector = MinusXAxis;
+
+			float AngleInRadians = FMath::DegreesToRadians(Settings->DirectionSettings.DirectionAngle);
+
+			FQuat Rotation = FQuat(FVector(0.f, 0.f, 1.f), AngleInRadians);
+
+			AgainstVector = Rotation.RotateVector(AgainstVector);
+
+			const FVector UpVector = InPoint.Transform.GetUnitAxis(EAxis::Z);
+
+			FVector ProjectedNormal = FVector(UpVector.X, UpVector.Y, 0.f);
+			
+			FVector UnitProjectedNormal = ProjectedNormal.GetSafeNormal();
+			
+			float Dot = FVector::DotProduct(UnitProjectedNormal, AgainstVector);
+
+			float IncludedAngle = FMath::RadiansToDegrees(FMath::Acos(Dot));
+			
+			if(IncludedAngle >= -Settings->DirectionSettings.AngleSpread/2 && IncludedAngle <= Settings->DirectionSettings.AngleSpread/2)
+			{
+				if(bGenerateDirectionMedialAxis && Settings->DirectionSettings.bRampByDirection)
+				{
+					float Direction = abs(FMath::Cos(IncludedAngle));
+
+					float DirectionDensityValue = DirectionDensityCurve->Eval(Direction);
+
+					OutPoint.Density = FMath::Clamp(DirectionDensityValue, 0.f, 1.f);
+				}
+				else
+				{
+					OutPoint.Density = 1;
+				}
+				
+			}
+			else
+			{
+				OutPoint.Density = 0;
+			}
+			return true;
+
+			//TODO: Blend multiple density
+		
+		});
+		break;
+		
+	default:
+		break;
+	}
+
+	
 	
 	return true;
 }
