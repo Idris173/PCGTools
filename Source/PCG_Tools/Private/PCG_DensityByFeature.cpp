@@ -52,7 +52,6 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 	TArray<FPCGTaggedData> Inputs = Context->InputData.GetInputsByPin(PCGPinConstants::DefaultInputLabel);
 	
 	TArray<FPCGTaggedData>& Outputs = Context->OutputData.TaggedData;
-
 	
 	// Init Curve
 
@@ -68,8 +67,6 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 	
 	const bool bGenerateDirectionMedialAxis = DirectionDensityCurve != nullptr && DirectionDensityCurve->GetNumKeys() > 0;
 	
-
-	
 	//CalcValue UpVector Dot PointNormal
 
 	const auto CalcValue = [UpVector](const FPCGPoint& InPoint)
@@ -78,15 +75,13 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 
 		return FMath::Clamp(PointUp.Dot(UpVector),0.f,1.0f);
 	};
-
 	
-	//ProcessPoints
+	//Process to Points
 		
 	ProcessPoints(Context, Inputs, Outputs, [CalcValue,Settings, SlopeDensityCurve, bGenerateSlopeMedialAxis,HeightDensityCurve,bGenerateHeightMedialAxis,DirectionDensityCurve,bGenerateDirectionMedialAxis](const FPCGPoint& InPoint, FPCGPoint& OutPoint)->bool
 	{
 		OutPoint = InPoint;
-
-
+		
 		//------------------Calculate Slope--------------------//
 
 		float DegreesNdotZ = FMath::Acos(CalcValue(InPoint));
@@ -105,7 +100,6 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 
 		if(Slope >= MinSlope && Slope <= MaxSlope)
 		{
-			
 
 			if(Settings->SlopeSettings.bRampBySlopeAngle && bGenerateSlopeMedialAxis)
 			{				
@@ -121,7 +115,6 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 		else
 		{
 			SlopeDensityValue = 0;
-
 		}
 		
 		//------------------Calculate Height--------------------//
@@ -141,8 +134,6 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 			if (Settings->HeightSettings.bRampByHeight && bGenerateHeightMedialAxis)
 			{
 				HeightDensityValue = FMath::Clamp(HeightDensityCurve->Eval(heightRemap), 0.f, 1.f);
-
-				
 			}
 			else
 			{
@@ -200,9 +191,10 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 		}
 
 		//-----------------Blend Density-----------------//
-
+		
 		float OutputDensity = 1;
-
+		
+		//If all features are off, make density to zero
 		if(!Settings->bBySlope && !Settings->bByHeight && !Settings->bByDirection)
 		{
 			OutputDensity = 0;
