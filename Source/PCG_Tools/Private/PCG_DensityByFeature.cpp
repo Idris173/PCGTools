@@ -223,6 +223,11 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 			OutputDensity *= DirectionDensityValue;
 		}
 
+		if(Settings->bInvertDensity)
+		{
+			OutputDensity = 1 - OutputDensity;
+		}
+		
 		OutPoint.Density = OutputDensity;
 	
 		return true;

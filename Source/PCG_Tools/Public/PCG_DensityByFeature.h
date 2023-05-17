@@ -17,15 +17,15 @@ USTRUCT(BlueprintType)
 struct FSlopeSettings
 {
 	GENERATED_BODY()
-		
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings)
-	bool bRampBySlopeAngle;
 	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings, meta = (ClampMin = "0", ClampMax = "90"))
 	float MinSlopeAngle = 20;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings, meta = (ClampMin = "0", ClampMax = "90"))
 	float MaxSlopeAngle = 70;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings)
+	bool bRampBySlopeAngle;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings)
 	FRuntimeFloatCurve SlopeRampCurve;
@@ -44,10 +44,10 @@ struct FHeightSettings
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings)
 	float MaxHeight = 10;
-
+	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings)
 	bool bRampByHeight;
-
+	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings)
 	FRuntimeFloatCurve HeightRampCurve;
 
@@ -122,6 +122,9 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings,  meta = (EditCondition = "bByDirection",EditConditionHides,ExposeOnSpawn))
 	FDirectionSettings DirectionSettings;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings)
+	bool bInvertDensity;
 
 
 };
