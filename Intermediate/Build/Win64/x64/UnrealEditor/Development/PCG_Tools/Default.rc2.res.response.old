@@ -2,11 +2,11 @@
 /D_WIN64
 /l 0x409
 /I "."
-/I "F:\Visual Studio\VC\Tools\MSVC\14.35.32215\INCLUDE"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\ucrt"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\shared"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\um"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22000.0\winrt"
+/I "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt"
 /DIS_PROGRAM=0
 /DUE_EDITOR=1
 /DUSE_SHADER_COMPILER_WORKER_TRACE=0
@@ -66,11 +66,11 @@
 /DNDEBUG=1
 /DUE_BUILD_DEVELOPMENT=1
 /DORIGINAL_FILE_NAME="UnrealEditor-PCG_Tools.dll"
-/DBUILT_FROM_CHANGELIST=24887336
-/DBUILD_VERSION=++UE5+Release-5.2-CL-24887336
+/DBUILT_FROM_CHANGELIST=25360045
+/DBUILD_VERSION=++UE5+Release-5.2-CL-25360045
 /DBUILD_ICON_FILE_NAME="\"..\\Build\\Windows\\Resources\\Default.ico\""
 /DPROJECT_COPYRIGHT_STRING="Fill out your copyright notice in the Description page of Project Settings."
 /DPROJECT_PRODUCT_NAME="Third Person BP Game Template"
 /DPROJECT_PRODUCT_IDENTIFIER=PCG5_2Test
-/fo "F:\UE5.2Project\PCG5_2Test\Plugins\PCGTools\Intermediate\Build\Win64\x64\UnrealEditor\Development\PCG_Tools\Default.rc2.res"
+/fo "D:\UE5.2Project\PCG5_2Test\Plugins\PCGTools\Intermediate\Build\Win64\x64\UnrealEditor\Development\PCG_Tools\Default.rc2.res"
 "..\Build\Windows\Resources\Default.rc2"

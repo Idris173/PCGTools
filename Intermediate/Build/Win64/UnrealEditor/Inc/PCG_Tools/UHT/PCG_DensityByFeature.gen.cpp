@@ -15,70 +15,11 @@ void EmptyLinkFunctionForGeneratedCodePCG_DensityByFeature() {}
 	PCG_API UClass* Z_Construct_UClass_UPCGSettings();
 	PCG_TOOLS_API UClass* Z_Construct_UClass_UPCG_DensityByFeatureSettings();
 	PCG_TOOLS_API UClass* Z_Construct_UClass_UPCG_DensityByFeatureSettings_NoRegister();
-	PCG_TOOLS_API UEnum* Z_Construct_UEnum_PCG_Tools_EPCGDensityFeatureType();
 	PCG_TOOLS_API UScriptStruct* Z_Construct_UScriptStruct_FDirectionSettings();
 	PCG_TOOLS_API UScriptStruct* Z_Construct_UScriptStruct_FHeightSettings();
 	PCG_TOOLS_API UScriptStruct* Z_Construct_UScriptStruct_FSlopeSettings();
 	UPackage* Z_Construct_UPackage__Script_PCG_Tools();
 // End Cross Module References
-	static FEnumRegistrationInfo Z_Registration_Info_UEnum_EPCGDensityFeatureType;
-	static UEnum* EPCGDensityFeatureType_StaticEnum()
-	{
-		if (!Z_Registration_Info_UEnum_EPCGDensityFeatureType.OuterSingleton)
-		{
-			Z_Registration_Info_UEnum_EPCGDensityFeatureType.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_PCG_Tools_EPCGDensityFeatureType, (UObject*)Z_Construct_UPackage__Script_PCG_Tools(), TEXT("EPCGDensityFeatureType"));
-		}
-		return Z_Registration_Info_UEnum_EPCGDensityFeatureType.OuterSingleton;
-	}
-	template<> PCG_TOOLS_API UEnum* StaticEnum<EPCGDensityFeatureType>()
-	{
-		return EPCGDensityFeatureType_StaticEnum();
-	}
-	struct Z_Construct_UEnum_PCG_Tools_EPCGDensityFeatureType_Statics
-	{
-		static const UECodeGen_Private::FEnumeratorParam Enumerators[];
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[];
-#endif
-		static const UECodeGen_Private::FEnumParams EnumParams;
-	};
-	const UECodeGen_Private::FEnumeratorParam Z_Construct_UEnum_PCG_Tools_EPCGDensityFeatureType_Statics::Enumerators[] = {
-		{ "EPCGDensityFeatureType::BySlope", (int64)EPCGDensityFeatureType::BySlope },
-		{ "EPCGDensityFeatureType::ByHeight", (int64)EPCGDensityFeatureType::ByHeight },
-		{ "EPCGDensityFeatureType::ByDirection", (int64)EPCGDensityFeatureType::ByDirection },
-	};
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UEnum_PCG_Tools_EPCGDensityFeatureType_Statics::Enum_MetaDataParams[] = {
-		{ "ByDirection.Comment", "/**\n * \n */" },
-		{ "ByDirection.Name", "EPCGDensityFeatureType::ByDirection" },
-		{ "ByHeight.Comment", "/**\n * \n */" },
-		{ "ByHeight.Name", "EPCGDensityFeatureType::ByHeight" },
-		{ "BySlope.Comment", "/**\n * \n */" },
-		{ "BySlope.Name", "EPCGDensityFeatureType::BySlope" },
-		{ "Comment", "/**\n * \n */" },
-		{ "ModuleRelativePath", "Public/PCG_DensityByFeature.h" },
-	};
-#endif
-	const UECodeGen_Private::FEnumParams Z_Construct_UEnum_PCG_Tools_EPCGDensityFeatureType_Statics::EnumParams = {
-		(UObject*(*)())Z_Construct_UPackage__Script_PCG_Tools,
-		nullptr,
-		"EPCGDensityFeatureType",
-		"EPCGDensityFeatureType",
-		Z_Construct_UEnum_PCG_Tools_EPCGDensityFeatureType_Statics::Enumerators,
-		UE_ARRAY_COUNT(Z_Construct_UEnum_PCG_Tools_EPCGDensityFeatureType_Statics::Enumerators),
-		RF_Public|RF_Transient|RF_MarkAsNative,
-		EEnumFlags::None,
-		(uint8)UEnum::ECppForm::EnumClass,
-		METADATA_PARAMS(Z_Construct_UEnum_PCG_Tools_EPCGDensityFeatureType_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_PCG_Tools_EPCGDensityFeatureType_Statics::Enum_MetaDataParams))
-	};
-	UEnum* Z_Construct_UEnum_PCG_Tools_EPCGDensityFeatureType()
-	{
-		if (!Z_Registration_Info_UEnum_EPCGDensityFeatureType.InnerSingleton)
-		{
-			UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EPCGDensityFeatureType.InnerSingleton, Z_Construct_UEnum_PCG_Tools_EPCGDensityFeatureType_Statics::EnumParams);
-		}
-		return Z_Registration_Info_UEnum_EPCGDensityFeatureType.InnerSingleton;
-	}
 	static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_SlopeSettings;
 class UScriptStruct* FSlopeSettings::StaticStruct()
 {
@@ -121,6 +62,7 @@ template<> PCG_TOOLS_API UScriptStruct* StaticStruct<FSlopeSettings>()
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FSlopeSettings_Statics::Struct_MetaDataParams[] = {
 		{ "BlueprintType", "true" },
+		{ "Comment", "/**\n * \n */" },
 		{ "ModuleRelativePath", "Public/PCG_DensityByFeature.h" },
 	};
 #endif
@@ -425,15 +367,10 @@ template<> PCG_TOOLS_API UScriptStruct* StaticStruct<FDirectionSettings>()
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
-		static const UECodeGen_Private::FBytePropertyParams NewProp_DensityFeatureType_Underlying;
 #if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_DensityFeatureType_MetaData[];
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_UpVector_MetaData[];
 #endif
-		static const UECodeGen_Private::FEnumPropertyParams NewProp_DensityFeatureType;
-#if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_InPointNormal_MetaData[];
-#endif
-		static const UECodeGen_Private::FStructPropertyParams NewProp_InPointNormal;
+		static const UECodeGen_Private::FStructPropertyParams NewProp_UpVector;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_bBySlope_MetaData[];
 #endif
@@ -477,22 +414,14 @@ template<> PCG_TOOLS_API UScriptStruct* StaticStruct<FDirectionSettings>()
 		{ "ModuleRelativePath", "Public/PCG_DensityByFeature.h" },
 	};
 #endif
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_DensityFeatureType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_DensityFeatureType_MetaData[] = {
-		{ "Category", "Settings" },
-		{ "ModuleRelativePath", "Public/PCG_DensityByFeature.h" },
-	};
-#endif
-	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_DensityFeatureType = { "DensityFeatureType", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UPCG_DensityByFeatureSettings, DensityFeatureType), Z_Construct_UEnum_PCG_Tools_EPCGDensityFeatureType, METADATA_PARAMS(Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_DensityFeatureType_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_DensityFeatureType_MetaData)) }; // 404111994
-#if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_InPointNormal_MetaData[] = {
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_UpVector_MetaData[] = {
 		{ "Category", "Settings" },
 		{ "ModuleRelativePath", "Public/PCG_DensityByFeature.h" },
 		{ "PCG_Overridable", "" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_InPointNormal = { "InPointNormal", nullptr, (EPropertyFlags)0x0010000000000014, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UPCG_DensityByFeatureSettings, InPointNormal), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_InPointNormal_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_InPointNormal_MetaData)) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_UpVector = { "UpVector", nullptr, (EPropertyFlags)0x0010000000000014, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UPCG_DensityByFeatureSettings, UpVector), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_UpVector_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_UpVector_MetaData)) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_bBySlope_MetaData[] = {
 		{ "Category", "Settings" },
@@ -515,7 +444,7 @@ template<> PCG_TOOLS_API UScriptStruct* StaticStruct<FDirectionSettings>()
 		{ "ModuleRelativePath", "Public/PCG_DensityByFeature.h" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_SlopeSettings = { "SlopeSettings", nullptr, (EPropertyFlags)0x0011000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UPCG_DensityByFeatureSettings, SlopeSettings), Z_Construct_UScriptStruct_FSlopeSettings, METADATA_PARAMS(Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_SlopeSettings_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_SlopeSettings_MetaData)) }; // 873235609
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_SlopeSettings = { "SlopeSettings", nullptr, (EPropertyFlags)0x0011000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UPCG_DensityByFeatureSettings, SlopeSettings), Z_Construct_UScriptStruct_FSlopeSettings, METADATA_PARAMS(Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_SlopeSettings_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_SlopeSettings_MetaData)) }; // 2193335095
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_bByHeight_MetaData[] = {
 		{ "Category", "Settings" },
@@ -563,9 +492,7 @@ template<> PCG_TOOLS_API UScriptStruct* StaticStruct<FDirectionSettings>()
 #endif
 	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_DirectionSettings = { "DirectionSettings", nullptr, (EPropertyFlags)0x0011000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UPCG_DensityByFeatureSettings, DirectionSettings), Z_Construct_UScriptStruct_FDirectionSettings, METADATA_PARAMS(Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_DirectionSettings_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_DirectionSettings_MetaData)) }; // 2237685832
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::PropPointers[] = {
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_DensityFeatureType_Underlying,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_DensityFeatureType,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_InPointNormal,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_UpVector,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_bBySlope,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_SlopeSettings,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPCG_DensityByFeatureSettings_Statics::NewProp_bByHeight,
@@ -603,28 +530,23 @@ template<> PCG_TOOLS_API UScriptStruct* StaticStruct<FDirectionSettings>()
 	{
 		return UPCG_DensityByFeatureSettings::StaticClass();
 	}
-	UPCG_DensityByFeatureSettings::UPCG_DensityByFeatureSettings(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UPCG_DensityByFeatureSettings);
 	UPCG_DensityByFeatureSettings::~UPCG_DensityByFeatureSettings() {}
-	struct Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_Source_PCG_Tools_Public_PCG_DensityByFeature_h_Statics
+	struct Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_main_Source_PCG_Tools_Public_PCG_DensityByFeature_h_Statics
 	{
-		static const FEnumRegisterCompiledInInfo EnumInfo[];
 		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_Source_PCG_Tools_Public_PCG_DensityByFeature_h_Statics::EnumInfo[] = {
-		{ EPCGDensityFeatureType_StaticEnum, TEXT("EPCGDensityFeatureType"), &Z_Registration_Info_UEnum_EPCGDensityFeatureType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 404111994U) },
-	};
-	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_Source_PCG_Tools_Public_PCG_DensityByFeature_h_Statics::ScriptStructInfo[] = {
-		{ FSlopeSettings::StaticStruct, Z_Construct_UScriptStruct_FSlopeSettings_Statics::NewStructOps, TEXT("SlopeSettings"), &Z_Registration_Info_UScriptStruct_SlopeSettings, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSlopeSettings), 873235609U) },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_main_Source_PCG_Tools_Public_PCG_DensityByFeature_h_Statics::ScriptStructInfo[] = {
+		{ FSlopeSettings::StaticStruct, Z_Construct_UScriptStruct_FSlopeSettings_Statics::NewStructOps, TEXT("SlopeSettings"), &Z_Registration_Info_UScriptStruct_SlopeSettings, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FSlopeSettings), 2193335095U) },
 		{ FHeightSettings::StaticStruct, Z_Construct_UScriptStruct_FHeightSettings_Statics::NewStructOps, TEXT("HeightSettings"), &Z_Registration_Info_UScriptStruct_HeightSettings, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FHeightSettings), 2004868017U) },
 		{ FDirectionSettings::StaticStruct, Z_Construct_UScriptStruct_FDirectionSettings_Statics::NewStructOps, TEXT("DirectionSettings"), &Z_Registration_Info_UScriptStruct_DirectionSettings, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FDirectionSettings), 2237685832U) },
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_Source_PCG_Tools_Public_PCG_DensityByFeature_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UPCG_DensityByFeatureSettings, UPCG_DensityByFeatureSettings::StaticClass, TEXT("UPCG_DensityByFeatureSettings"), &Z_Registration_Info_UClass_UPCG_DensityByFeatureSettings, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPCG_DensityByFeatureSettings), 1258651694U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_main_Source_PCG_Tools_Public_PCG_DensityByFeature_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UPCG_DensityByFeatureSettings, UPCG_DensityByFeatureSettings::StaticClass, TEXT("UPCG_DensityByFeatureSettings"), &Z_Registration_Info_UClass_UPCG_DensityByFeatureSettings, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPCG_DensityByFeatureSettings), 3810438276U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_Source_PCG_Tools_Public_PCG_DensityByFeature_h_3678035758(TEXT("/Script/PCG_Tools"),
-		Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_Source_PCG_Tools_Public_PCG_DensityByFeature_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_Source_PCG_Tools_Public_PCG_DensityByFeature_h_Statics::ClassInfo),
-		Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_Source_PCG_Tools_Public_PCG_DensityByFeature_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_Source_PCG_Tools_Public_PCG_DensityByFeature_h_Statics::ScriptStructInfo),
-		Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_Source_PCG_Tools_Public_PCG_DensityByFeature_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_Source_PCG_Tools_Public_PCG_DensityByFeature_h_Statics::EnumInfo));
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_main_Source_PCG_Tools_Public_PCG_DensityByFeature_h_1118729996(TEXT("/Script/PCG_Tools"),
+		Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_main_Source_PCG_Tools_Public_PCG_DensityByFeature_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_main_Source_PCG_Tools_Public_PCG_DensityByFeature_h_Statics::ClassInfo),
+		Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_main_Source_PCG_Tools_Public_PCG_DensityByFeature_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_UE5_2Project_PCG5_2Test_Plugins_PCGTools_main_Source_PCG_Tools_Public_PCG_DensityByFeature_h_Statics::ScriptStructInfo),
+		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

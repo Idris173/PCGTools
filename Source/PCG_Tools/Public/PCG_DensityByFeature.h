@@ -4,6 +4,7 @@
 #include "CoreMinimal.h"
 #include "PCGSettings.h"
 #include "Elements/PCGDataFromActor.h"
+#include "Curves/CurveFloat.h"
 #include "Elements/PCGPointProcessingElementBase.h"
 #include "PCG_DensityByFeature.generated.h"
 
@@ -11,16 +12,6 @@
  * 
  */
 
-UENUM()
-enum class EPCGDensityFeatureType : uint8
-{
-	BySlope ,
-	
-	ByHeight,
-	
-	ByDirection,
-	
-};
 
 USTRUCT(BlueprintType)
 struct FSlopeSettings
@@ -38,6 +29,9 @@ struct FSlopeSettings
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings)
 	FRuntimeFloatCurve SlopeRampCurve;
+
+	
+	
 };
 
 USTRUCT(BlueprintType)
@@ -89,7 +83,7 @@ public:
 	//~Begin UPCGSettings interface
 	#if WITH_EDITOR
 	virtual FName GetDefaultNodeName() const override { return FName(TEXT("Density By Feature")); }
-	virtual EPCGSettingsType GetType() const override { return EPCGSettingsType::Spatial; }
+	virtual EPCGSettingsType GetType() const override { return EPCGSettingsType::Density; }
 #endif
 
 protected:
@@ -98,13 +92,11 @@ protected:
 	virtual FPCGElementPtr CreateElement() const override;
 
 public:
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings)
-	EPCGDensityFeatureType DensityFeatureType = EPCGDensityFeatureType::BySlope;
-
-
+	
+	UPCG_DensityByFeatureSettings();
+	
 	UPROPERTY(BlueprintReadOnly, Category = Settings, meta = (PCG_Overridable))
-	FVector InPointNormal = {0, 0.0, 1.0};
-
+	FVector UpVector = {0, 0.0, 1.0};
 	
 	//By Slope
 
@@ -130,9 +122,8 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = Settings,  meta = (EditCondition = "bByDirection",EditConditionHides,ExposeOnSpawn))
 	FDirectionSettings DirectionSettings;
-	
-	
-	
+
+
 };
 
 

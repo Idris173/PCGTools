@@ -6,6 +6,7 @@
 #include "Data/PCGPointData.h"
 #include "Elements/PCGPointProcessingElementBase.h"
 #include "Math/UnrealMathUtility.h"
+#include "Curves/RichCurve.h"
 #include "PCGContext.h"
 #include "PCGPin.h"
 
@@ -17,8 +18,27 @@ FPCGElementPtr UPCG_DensityByFeatureSettings::CreateElement() const
 	
 }
 
+UPCG_DensityByFeatureSettings::UPCG_DensityByFeatureSettings()
+{
+	//Init Default Curve
+	
+	FRuntimeFloatCurve DefaultCurve;
+	
+	DefaultCurve.GetRichCurve()->AddKey(0.0f, 0.0f);
 
+	DefaultCurve.GetRichCurve()->AddKey(0.3f, 1.0f);
 
+	DefaultCurve.GetRichCurve()->AddKey(0.7f, 1.0f);
+
+	DefaultCurve.GetRichCurve()->AddKey(1.0f, 0.0f);
+
+	SlopeSettings.SlopeRampCurve.GetRichCurve()->SetKeys(DefaultCurve.GetRichCurve()->GetCopyOfKeys());
+
+	HeightSettings.HeightRampCurve.GetRichCurve()->SetKeys(DefaultCurve.GetRichCurve()->GetCopyOfKeys());
+
+	DirectionSettings.DirectionRampCurve.GetRichCurve()->SetKeys(DefaultCurve.GetRichCurve()->GetCopyOfKeys());
+	
+}
 bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 {
 	TRACE_CPUPROFILER_EVENT_SCOPE(FPCG_DensityByFeatureElement::Execute);
@@ -27,14 +47,13 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 
 	check(Settings);
 	
-	const FVector Normal = Settings->InPointNormal.GetSafeNormal();
+	const FVector UpVector = Settings->UpVector.GetSafeNormal();
 
 	TArray<FPCGTaggedData> Inputs = Context->InputData.GetInputsByPin(PCGPinConstants::DefaultInputLabel);
 	
 	TArray<FPCGTaggedData>& Outputs = Context->OutputData.TaggedData;
 
-
-
+	
 	// Init Curve
 
 	const FRichCurve* SlopeDensityCurve = Settings->SlopeSettings.SlopeRampCurve.GetRichCurveConst();
@@ -46,19 +65,21 @@ bool FPCG_DensityByFeatureElement::ExecuteInternal(FPCGContext* Context) const
 	const bool bGenerateHeightMedialAxis = HeightDensityCurve != nullptr && HeightDensityCurve->GetNumKeys() > 0;
 
 	const FRichCurve* DirectionDensityCurve = Settings->DirectionSettings.DirectionRampCurve.GetRichCurveConst();
-
+	
 	const bool bGenerateDirectionMedialAxis = DirectionDensityCurve != nullptr && DirectionDensityCurve->GetNumKeys() > 0;
+	
 
+	
+	//CalcValue UpVector Dot PointNormal
 
-	//
-
-	const auto CalcValue = [Normal](const FPCGPoint& InPoint)
+	const auto CalcValue = [UpVector](const FPCGPoint& InPoint)
 	{
-		const FVector Up = InPoint.Transform.GetUnitAxis(EAxis::Z);
+		const FVector PointUp = InPoint.Transform.GetUnitAxis(EAxis::Z);
 
-		return FMath::Clamp(Up.Dot(Normal),0.f,1.0f);
+		return FMath::Clamp(PointUp.Dot(UpVector),0.f,1.0f);
 	};
 
+	
 	//ProcessPoints
 		
 	ProcessPoints(Context, Inputs, Outputs, [CalcValue,Settings, SlopeDensityCurve, bGenerateSlopeMedialAxis,HeightDensityCurve,bGenerateHeightMedialAxis,DirectionDensityCurve,bGenerateDirectionMedialAxis](const FPCGPoint& InPoint, FPCGPoint& OutPoint)->bool
